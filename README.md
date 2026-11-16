@@ -23,6 +23,11 @@ That clears the 1,154 Elo floor for the final and sits above the house
 sunfish baseline (~1,325–1,365). It beats the depth-4 anchor and has
 beaten the 100k-node and 500k-node anchors.
 
+The golfed engine passes 37/37 regression tests (exact perft depth 3 on
+6 positions, legal moves on 22 FENs, mate-in-1, determinism) and both
+trials ran with no timeouts — max think under 2 s per move against the
+10 s limit.
+
 ## Design
 
 A rewrite of the classic sunfish architecture into a 120-character
@@ -42,6 +47,10 @@ what leaves room for real search features inside 4 KB:
   quantized to multiples of 5)
 - **Deterministic**: a fixed 30,000-node budget per move, no clock —
   the same position always produces the same move
+
+A 50,000-node trial scored identically to 30,000 nodes (3/6, Elo 1,279),
+so the extra budget adds no strength here — the final budget stays at
+30,000 nodes. Compared with the v2 engine (Elo ~940), v3 is +511 Elo.
 
 ## Interface
 
